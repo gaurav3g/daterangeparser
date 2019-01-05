@@ -19,7 +19,7 @@ def writeCsv(path, lst):
 		    wr.writerow(row)
 
 def main():
-	input_arr = readCsv('/home/gaurav/projectDirectory/python-20180815/attachments/sample_file_input.csv')
+	input_arr = readCsv('sample_file_input.csv')
 	output_arr = list()
 
 	obj = daterange()
