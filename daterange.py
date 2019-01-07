@@ -40,11 +40,6 @@ class daterange:
 			
 			start_date_list,end_date_list = {'date': '', 'month': '', 'year': ''}, {'date': '', 'month': '', 'year': ''}
 			
-			# get yearlist from timestr and remove year from str
-			yearlist = self._findyear(self._timestr)
-			if(len(yearlist)>0):
-				start_date_list['year'],end_date_list['year'] = min(yearlist),max(yearlist)
-			
 			# get monthlist from string
 			monthlist = self._findmonth(self._timestr)
 			if(len(monthlist)>0):
@@ -53,16 +48,23 @@ class daterange:
 				for monthname in monthlist:
 					monthlistindex.append(self._month_dict[monthname])
 				
-				start_date_list['month'],end_date_list['month'] = monthlist[monthlistindex.index(min(monthlistindex))],monthlist[monthlistindex.index(max(monthlistindex))]
+				start_date_list['month'],end_date_list['month'] = monthlist[0],monthlist[len(monthlist)-1]
 
+			# get yearlist from timestr and remove year from string
+			yearlist = self._findyear(self._timestr)
+			if(len(yearlist)>0):
+				if(self._month_dict[start_date_list['month']]>self._month_dict[end_date_list['month']]):
+					yearlist.append(max(yearlist) - 1)
+				start_date_list['year'],end_date_list['year'] = min(yearlist),max(yearlist)
+			
+			# get timelist from timestr and remove time from string
 			timelist = self._findtime(self._timestr)
 			
+			# get datelist from timestr and remove time from string
 			datelist = self._finddate(self._timestr)
+			print(datelist)
 			if len(datelist)>0:
-				if len(datelist)>2:
-					start_date_list['date'],end_date_list['date'] = min(datelist),max(datelist)
-				else:
-					start_date_list['date'],end_date_list['date'] = datelist[0],datelist[len(datelist)-1]
+				start_date_list['date'],end_date_list['date'] = datelist[0],datelist[len(datelist)-1]
 			
 			temp_start_date,temp_end_date = str(start_date_list['date']) +' '+ start_date_list['month'] +' '+ str(start_date_list['year']), str(end_date_list['date']) +' '+ end_date_list['month'] +' '+ str(end_date_list['year'])
 
