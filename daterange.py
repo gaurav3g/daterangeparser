@@ -62,7 +62,6 @@ class daterange:
 			
 			# get datelist from timestr and remove time from string
 			datelist = self._finddate(self._timestr)
-			print(datelist)
 			if len(datelist)>0:
 				start_date_list['date'],end_date_list['date'] = datelist[0],datelist[len(datelist)-1]
 			
